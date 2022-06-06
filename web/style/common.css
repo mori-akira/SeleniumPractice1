@@ -1,0 +1,71 @@
+@charset "utf-8";
+
+body {
+    max-width: 756px;
+    margin-left: 16px;
+    margin-top: 16px;
+}
+
+h1 {
+    padding: 4px;
+    width: 100%;
+    background-color: #77f;
+    color: #fff;
+}
+
+.link_area {
+    width: 100%;
+    padding-right: 16px;
+    text-align: right;
+}
+
+.link_area2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.link_area2 > a {
+    display: inline-block;
+    margin: 0 16px;
+}
+
+table.content_table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 16px;
+}
+
+table.content_table > thead > tr {
+    background-color: #444;
+    color: #fff;
+}
+
+table.content_table th, table.content_table td {
+    padding: 8px 16px;
+}
+
+table.content_table td {
+    border-bottom: solid 1px #444;
+    text-align: center;
+}
+
+fieldset {
+    width: 90%;
+}
+
+fieldset label > span {
+    display: inline-block;
+    width: 15%;
+    background-color: #bfb;
+    margin-top: 8px;
+    padding: 4px 8px;
+}
+
+fieldset input, fieldset select {
+    width: 40%;
+    margin-left: 5%;
+}

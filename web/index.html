@@ -1,0 +1,62 @@
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Moriaki Kogure">
+    <title>社員一覧</title>
+    <link rel="stylesheet" type="text/css" href="style/common.css">
+</head>
+
+<body>
+    <h1>社員一覧</h1>
+    <div class="link_area">
+        <a href="./add.html">新規登録</a>
+    </div>
+
+    <table class="content_table">
+        <thead>
+            <tr>
+                <th>社員番号</th>
+                <th>氏名</th>
+                <th>ｼﾒｲ</th>
+                <th>所属</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            let seq = sessionStorage.getItem('seq');
+            if (!seq) {
+                return;
+            }
+            for (let i = 1; i < seq; i++) {
+                let employeeNo = ('0000' + i).slice(-4);
+                if (!sessionStorage.getItem(employeeNo)) {
+                    continue;
+                }
+                let tr = $('<tr></tr>');
+                tr.append($('<td></td>').append($('<a></a>').text(employeeNo).attr('href', `./add.html?employeeNo=${employeeNo}`)));
+                tr.append($('<td></td>').text(sessionStorage.getItem(employeeNo + '.name')));
+                tr.append($('<td></td>').text(sessionStorage.getItem(employeeNo + '.name_kana')));
+                tr.append($('<td></td>').text(getBelongName(sessionStorage.getItem(employeeNo + '.belong'))));
+                $('.content_table>tbody').append(tr);
+            }
+        });
+
+        function getBelongName(id) {
+            switch (id) {
+                case '1':
+                    return '東京ｼｽﾃﾑ開発課';
+                case '2':
+                    return '国分ｼｽﾃﾑ開発課';
+                case '3':
+                    return '京都ｼｽﾃﾑ開発課';
+            }
+        }
+    </script>
+</body>
+
+</html>

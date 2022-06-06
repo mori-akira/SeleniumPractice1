@@ -1,0 +1,103 @@
+<html lang="ja" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Moriaki Kogure">
+    <title>社員登録</title>
+    <link rel="stylesheet" type="text/css" href="style/common.css">
+</head>
+
+<body>
+    <h1>社員登録</h1>
+
+    <fieldset>
+        <legend>登録情報</legend>
+        <label>
+            <span>氏名</span>
+            <input type="text" id="name">
+        </label><br>
+        <label>
+            <span>ｼﾒｲ</span>
+            <input type="text" id="name_kana">
+        </label><br>
+        <label>
+            <span>所属</span>
+            <select id="belong">
+                <option selected></option>
+                <option value="1">東京ｼｽﾃﾑ開発課</option>
+                <option value="2">国分ｼｽﾃﾑ開発課</option>
+                <option value="3">京都ｼｽﾃﾑ開発課</option>
+            </select>
+        </label>
+    </fieldset>
+
+    <div class="link_area2">
+        <a href="./index.html">一覧へ戻る</a>
+        <a href="#" id="reg_link">登録</a>
+        <a href="#" id="del_link">削除</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+    <script type="text/javascript">
+        $(function () {
+            let employeeNo = getParam('employeeNo');
+            if (employeeNo) {
+                $('#reg_link').text('更新');
+                $('#name').val(sessionStorage.getItem(employeeNo + '.name'));
+                $('#name_kana').val(sessionStorage.getItem(employeeNo + '.name_kana'));
+                $('#belong').val(sessionStorage.getItem(employeeNo + '.belong'));
+            } else {
+                $('#del_link').hide();
+                if (!sessionStorage.getItem('seq')) {
+                    sessionStorage.setItem('seq', 1);
+                }
+                employeeNo = ('0000' + sessionStorage.getItem('seq')).slice(-4);
+                sessionStorage.setItem('seq', parseInt(sessionStorage.getItem('seq')) + 1);
+            }
+
+            $('#reg_link').on('click', function() {
+                if (!$('#name').val()) {
+                    alert('名前を入力してください');
+                    return;
+                }
+                if (!$('#name_kana').val()) {
+                    alert('ｼﾒｲを入力してください');
+                    return;
+                }
+                if ($('#belong').val() == 0) {
+                    alert('所属を選択してください');
+                    return;
+                }
+                sessionStorage.setItem(employeeNo, 'true');
+                sessionStorage.setItem(employeeNo + '.name', $('#name').val());
+                sessionStorage.setItem(employeeNo + '.name_kana', $('#name_kana').val());
+                sessionStorage.setItem(employeeNo + '.belong', $('#belong').val());
+                location.assign('./index.html');
+            });
+
+            $('#del_link').on('click', function() {
+                sessionStorage.removeItem(employeeNo);
+                location.assign('./index.html');
+            });
+        });
+
+        function getParam(name) {
+            let query = location.search;
+            if (!query) {
+                return null;
+            }
+            query = query.replace(/^\?/, '');
+            query = query.split('&');
+            for (let q of query) {
+                let tmp = q.split('=');
+                if (tmp[0] === name) {
+                    return tmp[1];
+                }
+            }
+            return null;
+        }
+    </script>
+
+</body>
+
+</html>
